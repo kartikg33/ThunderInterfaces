@@ -72,7 +72,6 @@ namespace Exchange {
         // @brief Currently available networks
         virtual uint32_t Networks(IStringIterator*& networks /* @out */) const = 0;
 
-        // @property
         // @brief Status of requested network
         virtual uint32_t Status(const string& network /* @index */, string& bridgeName /* @out */, StatusType& status /* @out */) const = 0;
 
@@ -80,8 +79,8 @@ namespace Exchange {
         // @brief Configuration of requested network
         // @param configInfo: Configuration info of requested network
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
-        virtual uint32_t Config(const string& network /* @index */, Config& config /* @out */) const = 0;
-        virtual uint32_t Config(const string& network /* @index */, const Config& config /* @in */) = 0;
+        virtual uint32_t config(const string& network /* @index */, Config& config /* @out */) const = 0;
+        virtual uint32_t config(const string& network /* @index */, Config const& config /* @in */) = 0;
 
         // @property
         // @brief Network up or down
