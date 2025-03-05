@@ -80,7 +80,7 @@ namespace Exchange {
         // @param configInfo: Configuration info of requested network
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
         virtual uint32_t config(const string& network /* @index */, Config& config /* @out */) const = 0;
-        virtual uint32_t config(const string& network /* @index */, Config const& config /* @in */) = 0;
+        virtual uint32_t config(const string& network /* @index */, const Config& config /* @in */) = 0;
 
         // @property
         // @brief Network up or down
