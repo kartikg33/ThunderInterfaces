@@ -25,31 +25,47 @@
 namespace Thunder {
 namespace Exchange {
 
+
     // @json
     struct EXTERNAL ILANControl : virtual public Core::IUnknown {
+
         enum { ID = ID_LANCONTROL };
+
+        struct NetworkInterface {
+            string ifname;
+            IfType ifType;
+        };
+
+        using INetworkInterfaceIterator = RPC::IIteratorType<NetworkInterface, ID_LANCONTROL_NETWORK_INTERFACE_ITERATOR>;
         
         enum StatusType : uint8_t {
             DOWN,
             UP
         };
 
-        struct Config {
-            string bridge_name;
-            string bridge_mac;
-            string bridge_ipv4;
-            string bridge_ipv6;
-            string ipv4_range_start;
-            string ipv4_range_end;
-            string ipv6_range_start;
-            string ipv6_range_end;
-            string* dnsNameservers;
-            string mac_address;
-            string ip_address;
-        };
-
         using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 
+        struct Config {
+            string bridgeName;
+            string bridgeMac;
+            bool stpEnable; 
+            string bridgeIpv4Address;
+            string bridgeIpv6Address;
+            string ipv4RangeStart;
+            string ipv4RangeEnd;
+            string ipv6RangeStart;
+            string ipv6RangeEnd;
+            IStringIterator dnsNameservers;
+            INetworkInterfaceIterator nwIfaceList;
+        };
+        
+        struct ClientDevice {
+            string macAddress;
+            string ipAddress;
+            string mask;
+            string hwType; // WIFI, Ethernet
+        };
+        using IClientDeviceIterator = RPC::IIteratorType<ClientDevice, ID_LANCONTROL_CLIENT_DEVICE_ITERATOR>;
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
             enum { ID = ID_LANCONTROL_NOTIFICATION };
@@ -70,28 +86,35 @@ namespace Exchange {
 
         // @property
         // @brief Currently available networks
-        virtual uint32_t Networks(IStringIterator*& networks /* @out */) const = 0;
+        virtual uint32_t GetNetworks(IStringIterator*& networks /* @out */) const = 0;
 
         // @brief Status of requested network
-        virtual uint32_t Status(const string& network /* @index */, string& bridgeName /* @out */, StatusType& status /* @out */) const = 0;
+        virtual uint32_t GetNetworkStatus(const string& network /* @index */, string& bridgeName /* @out */, StatusType& status /* @out */) const = 0;
 
         // @property
         // @brief Configuration of requested network
         // @param configInfo: Configuration info of requested network
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
-        virtual uint32_t config(const string& network /* @index */, Config& config /* @out */) const = 0;
-        virtual uint32_t config(const string& network /* @index */, const Config& config /* @in */) = 0;
+        virtual uint32_t GetNetworkConfig(const string& network /* @index */, Config& config /* @out */) const = 0;
+        virtual uint32_t CreateNetwork(const string& network /* @index */, const Config& config /* @in */) = 0;
+        // Delete network
+        virtual uint32_t RemoveNetwork(const string& network /* @index */) const = 0; /
 
         // @property
         // @brief Network up or down
         // @param up: Up/Down given network
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve UP
-        virtual uint32_t Up(const string& network /* @index */, bool& up /* @out */) const = 0;
-        virtual uint32_t Up(const string& network /* @index */, const bool up /* @in */) = 0;
+        virtual uint32_t NetworkUp(const string& network /* @index */, bool& up /* @out */) const = 0;
+        virtual uint32_t NetworkDown(const string& network /* @index */, const bool up /* @in */) = 0;
 
         // @brief Reset requested network
-        // @param interface: Name of the network to be reset
-        virtual uint32_t Reset(const string& network) = 0;
+        // @param interface: Name of the network to be restart
+        virtual uint32_t NetworkRestart(const string& network) = 0;
+
+        // @property
+        // @brief Provides client devices that are attached to the LAN
+        virtual uint32_t GetConnectedClients(const string& network /* @index */, IClientDeviceIterator*& clientDeviceList /* @out */) const = 0;
+
     };
 
 } // namespace Exchange
