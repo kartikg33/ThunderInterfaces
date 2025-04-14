@@ -72,13 +72,13 @@ namespace Exchange {
             uint32_t      prefixVltime;                 /**< IPv6 Prefix Valid Life Time */
             string        sitePrefixOld;                /**< add support for RFC7084 requirement L-13 */
             uint32_t      prefixVltimeOld;              /**< add support for RFC7084 requirement L-13 */
-            uint32_t      prefixCmd;
-            string        ifname;
+            uint32_t      prefixCmd;                    /**< Prefix command tells us whether prefix added or removed. Ex:renew or expired */
+            string        ifname;                       /**< Interface where we received leases */
             string        address;                      /**< New IPv6 address, if addrAssigned==TRUE */
             uint32_t      addressPltime;                /**< New IPv6 address, Preferred Life Time */
             uint32_t      addressVltime;                /**< New IPv6 address, Valid Life Time */
             string        pdIfAddress;                  /**< New IPv6 address of PD interface */
-            uint32_t      addrCmd;
+            uint32_t      addrCmd;                      /**< Address command tells us whether IPv6 address added or removed. Ex:renew or expired*/
             string        nameservers;                  /**< New nameserver, if addressAssigned==TRUE */
             string        domainName;                   /**< New domain Name, if addressAssigned==TRUE */
             string        ntpserver;                    /**< New ntp server(s), dhcp server may provide this */
