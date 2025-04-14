@@ -79,7 +79,7 @@ namespace Exchange {
             string ipv6RangeStart;
             string ipv6RangeEnd;
             IStringIterator dnsNameservers;
-            INetworkInterfaceIterator nwIfaceList;
+            INetworkInterfaceIterator attachedInterfaces;
         };
         
         struct ClientDevice {
