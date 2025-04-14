@@ -367,7 +367,7 @@ namespace Exchange {
         ID_APP_MANAGER                               = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x4E0,
         ID_APP_MANAGER_NOTIFICATION                  = ID_APP_MANAGER + 1
 
-        ID_LANCONTROL                                = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x4F0,
+        ID_LANCONTROL                                = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x500,
         ID_LANCONTROL_NOTIFICATION                   = ID_LANCONTROL + 1,
         ID_LANCONTROL_NETWORK_INTERFACE_ITERATOR     = ID_LANCONTROL + 2,
         ID_LANCONTROL_CLIENT_DEVICE_ITERATOR         = ID_LANCONTROL + 3  

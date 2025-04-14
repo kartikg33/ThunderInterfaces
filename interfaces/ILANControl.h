@@ -2,7 +2,7 @@
  * If not stated otherwise in this file or this component's LICENSE file the
  * following copyright and licenses apply:
  *
- * Copyright 2022 Metrological
+ * Copyright 2025 Sky UK Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 
 // @stubgen:include <com/IIteratorType.h>
 
-namespace Thunder {
+namespace WPEFramework {
 namespace Exchange {
 
 
@@ -30,6 +30,25 @@ namespace Exchange {
     struct EXTERNAL ILANControl : virtual public Core::IUnknown {
 
         enum { ID = ID_LANCONTROL };
+
+        enum NeworkType : uint8_t {
+            BRIDGE,
+            DUMMY,
+            GREIPV4,
+            GREIPV6,
+            MACVLAN,
+            VETH,
+            VLAN
+        };
+
+        enum IfType : uint8_t {
+            ETHERNET,
+            WIFI
+        };
+        enum Ipv6AddressAssignmentMode : uint8_t {
+            SLIC,
+            SLAAC
+        };
 
         struct NetworkInterface {
             string ifname;
@@ -45,14 +64,18 @@ namespace Exchange {
 
         using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 
-        struct Config {
-            string bridgeName;
-            string bridgeMac;
-            bool stpEnable; 
-            string bridgeIpv4Address;
-            string bridgeIpv6Address;
+        struct NetworkConfig {
+            string nwName;
+            string nwDevMac;
+            NeworkType nwType;
+            bool brStpEnable;
+            uint16_t brMTU;
+            string ipv4Address;
+            IStringIterator ipv6Addresses;
             string ipv4RangeStart;
             string ipv4RangeEnd;
+            Ipv6AddressAssignmentMode ipv6AssignmentMethod;
+            string ipv6ULA;
             string ipv6RangeStart;
             string ipv6RangeEnd;
             IStringIterator dnsNameservers;
@@ -63,7 +86,7 @@ namespace Exchange {
             string macAddress;
             string ipAddress;
             string mask;
-            string hwType; // WIFI, Ethernet
+            IfType hwType; // WIFI, Ethernet
         };
         using IClientDeviceIterator = RPC::IIteratorType<ClientDevice, ID_LANCONTROL_CLIENT_DEVICE_ITERATOR>;
         // @event
@@ -73,9 +96,8 @@ namespace Exchange {
 
             // @brief Signal network change
             // @param network: Name of the network that has changed
-            // @param bridgeName: Name of the linux bridge interface used for this network
             // @param status: Status of the linux bridge interface
-            virtual void NetworkChange(const string& network, const string& bridgeName, const StatusType& status) = 0;
+            virtual void NetworkChange(const string& network, const StatusType& status) = 0;
         };
 
          ~ILANControl() override = default;
@@ -86,36 +108,46 @@ namespace Exchange {
 
         // @property
         // @brief Currently available networks
-        virtual uint32_t GetNetworks(IStringIterator*& networks /* @out */) const = 0;
+        // @param networks: Name of the network that has changed
+        virtual uint32_t GetAvailableNetworks(IStringIterator*& networks /* @out */) const = 0;
 
         // @brief Status of requested network
-        virtual uint32_t GetNetworkStatus(const string& network /* @index */, string& bridgeName /* @out */, StatusType& status /* @out */) const = 0;
+        virtual uint32_t GetNetworkStatus(const string& network /* @index */,  StatusType& status /* @out */) const = 0;
 
-        // @property
+
         // @brief Configuration of requested network
-        // @param configInfo: Configuration info of requested network
+        // @param network: Name of the network
+        // @param config: Configuration info of requested network
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
-        virtual uint32_t GetNetworkConfig(const string& network /* @index */, Config& config /* @out */) const = 0;
-        virtual uint32_t CreateNetwork(const string& network /* @index */, const Config& config /* @in */) = 0;
-        // Delete network
-        virtual uint32_t RemoveNetwork(const string& network /* @index */) const = 0; /
+        virtual uint32_t CreateNetwork(const string& network /* @index */, const NetworkConfig& config /* @in */) = 0;
 
-        // @property
+        // @brief Configuration of requested network
+        // @param network: Name of the network
+        // @param config: Configuration info of requested network
+        // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
+        virtual uint32_t GetNetworkConfig(const string& network /* @index */, NetworkConfig& config /* @out */) const = 0;
+
+        // @brief Remove the requested network
+        // @param network: Name of the network
+        // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
+        virtual uint32_t RemoveNetwork(const string& network /* @index */) = 0;
+
         // @brief Network up or down
-        // @param up: Up/Down given network
-        // @retval ERROR_UNAVAILABLE Failed to set/retrieve UP
-        virtual uint32_t NetworkUp(const string& network /* @index */, bool& up /* @out */) const = 0;
-        virtual uint32_t NetworkDown(const string& network /* @index */, const bool up /* @in */) = 0;
+        // @param network: network name to be brought up or down
+        virtual uint32_t NetworkUp(const string& network /* @index */)  = 0;
+        virtual uint32_t NetworkDown(const string& network /* @index */) = 0;
 
         // @brief Reset requested network
-        // @param interface: Name of the network to be restart
+        // @param network: Name of the network to be restarted
         virtual uint32_t NetworkRestart(const string& network) = 0;
 
         // @property
         // @brief Provides client devices that are attached to the LAN
+        // @param network: Name of the network
+        // @param clientDeviceList: List of connected LAN devices
         virtual uint32_t GetConnectedClients(const string& network /* @index */, IClientDeviceIterator*& clientDeviceList /* @out */) const = 0;
 
     };
 
 } // namespace Exchange
-} // namespace Thunder
+} // namespace WPEFramework
