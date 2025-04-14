@@ -79,7 +79,7 @@ namespace Exchange {
             uint32_t      addressVltime;                /**< New IPv6 address, Valid Life Time */
             string        pdIfAddress;                  /**< New IPv6 address of PD interface */
             uint32_t      addrCmd;                      /**< Address command tells us whether IPv6 address added or removed. Ex:renew or expired*/
-            string        nameservers;                  /**< New nameserver, if addressAssigned==TRUE */
+            string        nameservers;                  /**< New nameserver(s), if addressAssigned==TRUE */
             string        domainName;                   /**< New domain Name, if addressAssigned==TRUE */
             string        ntpserver;                    /**< New ntp server(s), dhcp server may provide this */
         };
