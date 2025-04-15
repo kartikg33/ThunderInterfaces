@@ -34,9 +34,9 @@ namespace Exchange {
         };
 
         struct IPv4Info {
-            string        ipAddress;                   /** IPv4 address */
+            string        ipAddress;                    /** IPv4 address */
             string        netmask;                      /** IPv4 netmask */
-            string        gateway;                      /** IPv4 Default gatewa */
+            string        gateway;                      /** IPv4 Default gateway */
             string        dnsServers;                   /** IPv4 dns Servers */
             string        interfaceName;                /** IPv4 interface name */
             uint32_t      leaseTime;                    /** Lease time */
@@ -52,10 +52,10 @@ namespace Exchange {
             string        sitePrefix;                   /** Site prefix */
             uint32_t      prefixPltime;                 /** IPv6 Prefix Preferred Life Time */
             uint32_t      prefixVltime;                 /** IPv6 Prefix Valid Life Time */
-            string        sitePrefixOld;                /** add support for RFC7084 requirement L-13 */
-            uint32_t      prefixVltimeOld;              /** add support for RFC7084 requirement L-13 */
+            string        sitePrefixOld;                /** add support for RFC7084 requirement L-13, Site Prefix Old */
+            uint32_t      prefixVltimeOld;              /** add support for RFC7084 requirement L-13, Prefix Valid Life Time Old */
             string        interfaceName;                /** Interface where we received leases */
-            string        ipv6Address;                 /** IPv6 address */
+            string        ipv6Address;                  /** IPv6 address */
             uint32_t      addressPltime;                /** IPv6 address, Preferred Life Time */
             uint32_t      addressVltime;                /** IPv6 address, Valid Life Time */
             string        pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
