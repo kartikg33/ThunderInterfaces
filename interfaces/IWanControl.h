@@ -34,7 +34,7 @@ namespace Exchange {
         };
 
         struct IPv4Info {
-            string        ip_address;                   /** IPv4 address */
+            string        ipAddress;                   /** IPv4 address */
             string        netmask;                      /** IPv4 netmask */
             string        gateway;                      /** IPv4 Default gatewa */
             string        dnsServers;                   /** IPv4 dns Servers */
@@ -44,7 +44,7 @@ namespace Exchange {
             uint32_t      renewalTime;                  /** Renewal Time */
             int32_t       timeOffset;                   /** Time offset */
             string        timeZone;                     /** Time zone */
-            uint8_t       mtuAssigned;                  /** MTU Size */
+            uint8_t       mtuSize;                      /** MTU Size */
         };
 
         struct IPv6Info
@@ -54,15 +54,13 @@ namespace Exchange {
             uint32_t      prefixVltime;                 /** IPv6 Prefix Valid Life Time */
             string        sitePrefixOld;                /** add support for RFC7084 requirement L-13 */
             uint32_t      prefixVltimeOld;              /** add support for RFC7084 requirement L-13 */
-            uint32_t      prefixCmd;                    /** Prefix command tells us whether prefix added or removed. Ex:renew or expired */
             string        interfaceName;                /** Interface where we received leases */
-            string        ipv6_address;                 /** IPv6 address */
+            string        ipv6Address;                 /** IPv6 address */
             uint32_t      addressPltime;                /** IPv6 address, Preferred Life Time */
             uint32_t      addressVltime;                /** IPv6 address, Valid Life Time */
             string        pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
-            string        nameservers;                  /** Nameserver(s) */
-            string        domainName;                   /** IPv6 domain Name */
-            string        ntpserver;                    /** Ntp server(s), dhcp server may provide this */
+            string        dnsServers;                   /** Nameserver(s) */
+            string        ntpServers;                   /** Ntp server(s), dhcp server may provide this */
         };
 
         struct VirtualInterfaceConfig {
@@ -76,15 +74,15 @@ namespace Exchange {
         };
 
         struct NetworkStatusInfo {
-            String                      current_wan_interface_name              /* @brief current wan interface name */;
-            StatusType                  wan_status                              /* @brief WAN status */;
-            NetworkInterfaceStatus      *pstAvailable_Wan_Interfaces_Status     /* @brief available wan interface status */;
+            String                      currentWanInterfaceName              /* @brief current wan interface name */;
+            StatusType                  wanStatus                            /* @brief WAN status */;
+            NetworkInterfaceStatus      *pstAvailableWanInterfacesStatus     /* @brief available wan interface status */;
         };
 
         struct NetworkInfo {
             struct NetworkStatusInfo    statusInfo           /* @brief Network Status Information */;
-            struct Dhcpv4Info           dhcpv4Info           /* @brief Network IPv4 Information */;
-            struct Dhcpv6Info           dhcpv6Info           /* @brief Network IPv6 Information */;
+            struct IPv4Info             ipv4Info             /* @brief Network IPv4 Information */;
+            struct IPv6Info             ipv6Info             /* @brief Network IPv6 Information */;
         };
 
         using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
