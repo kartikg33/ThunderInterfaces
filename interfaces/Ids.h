@@ -368,8 +368,11 @@ namespace Exchange {
         ID_APP_MANAGER_NOTIFICATION                  = ID_APP_MANAGER + 1,
 
         ID_WANCONTROL                                = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x4F0,
-        ID_WANCONTROL_NOTIFICATION                   = ID_WANCONTROL + 1
-
+        ID_WANCONTROL_NOTIFICATION                   = ID_WANCONTROL + 1,
+          
+        ID_RADIOCONTROL                              = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x520,
+        ID_RADIOCONTROL_NOTIFICATION                 = ID_RADIOCONTROL + 1,
+        ID_RADIOCONTROL_RADIOCAPABILITIES_ITERATOR   = ID_RADIOCONTROL + 2
     };
 }
 }
