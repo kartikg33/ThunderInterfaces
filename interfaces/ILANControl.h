@@ -45,9 +45,9 @@ namespace Exchange {
             ETHERNET,
             WIFI
         };
-        enum Ipv6AddressAssignmentMode : uint8_t {
-            SLIC,
-            SLAAC
+        enum Dhcpv6AddressAssignmentMode : uint8_t {
+            STATEFUL,
+            STATELESS
         };
 
         struct NetworkInterface {
@@ -74,7 +74,7 @@ namespace Exchange {
             IStringIterator ipv6Addresses;
             string ipv4RangeStart;
             string ipv4RangeEnd;
-            Ipv6AddressAssignmentMode ipv6AssignmentMethod;
+            Dhcpv6AddressAssignmentMode dhcpv6AddressAssignmentMode;
             string ipv6ULA;
             string ipv6RangeStart;
             string ipv6RangeEnd;
