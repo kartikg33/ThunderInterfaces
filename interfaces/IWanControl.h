@@ -16,13 +16,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 #pragma once
 #include "Module.h"
 
 // @stubgen:include <com/IIteratorType.h>
 
-namespace Thunder {
+namespace WPEFramework {
 namespace Exchange {
 
     /* @json */
@@ -34,54 +33,36 @@ namespace Exchange {
             UP
         };
 
-        enum ActiveStatus : uint8_t {
-            INACTIVE,
-            ACTIVE
+        struct IPv4Info {
+            string        ip_address;                   /** IPv4 address */
+            string        netmask;                      /** IPv4 netmask */
+            string        gateway;                      /** IPv4 Default gatewa */
+            string        dnsServers;                   /** IPv4 dns Servers */
+            string        interfaceName;                /** IPv4 interface name */
+            uint32_t      leaseTime;                    /** Lease time */
+            uint32_t      rebindingTime;                /** Rebinding time */
+            uint32_t      renewalTime;                  /** Renewal Time */
+            int32_t       timeOffset;                   /** Time offset */
+            string        timeZone;                     /** Time zone */
+            uint8_t       mtuAssigned;                  /** MTU Size */
         };
 
-        struct Dhcpv4Info {
-            uint8_t       addressAssigned;              /** Have we been assigned an IP address ? */
-            uint8_t       isExpired;                    /** Is the lease time expired ? */
-            string        ip;                           /** New IP address, if addressAssigned==TRUE */
-            string        netmask;                      /** New netmask, if addressAssigned==TRUE */
-            string        gateway;                      /** New gateway, if addressAssigned==TRUE */
-            string        dnsServers;                   /** New dns Servers, if addressAssigned==TRUE */
-            string        dhcpcInterface;               /** Dhcp interface name */
-            uint32_t      leaseTime;                    /** Lease time, , if addressAssigned==TRUE */
-            uint32_t      rebindingTime;                /** Rebinding time, if addressAssigned==TRUE */
-            uint32_t      renewalTime;                  /** Renewal Time, if addressAssigned==TRUE */
-            int32_t       timeOffset;                   /** New time offset, if addressAssigned==TRUE */
-            uint8_t       isTimeOffsetAssigned;         /** Is the time offset assigned ? */
-            string        timeZone;                     /** New time zone, if addressAssigned==TRUE */
-            uint8_t       mtuAssigned;                  /** Have we been assigned MTU size ? */
-            uint16_t      mtuSize;                      /** MTU Size, if mtuAssigned==TRUE */
-        };
-
-        struct Dhcpv6Info
+        struct IPv6Info
         {
-            uint8_t       prefixAssigned;               /**< Have we been assigned a site prefix ? */
-            uint8_t       addrAssigned;                 /**< Have we been assigned an IPv6 address ? */
-            uint8_t       dnsAssigned;                  /**< Have we been assigned dns server addresses ? */
-            uint8_t       domainNameAssigned;           /**< Have we been assigned domain name ? */
-            uint8_t       aftrAssigned;                 /**< Have we been assigned aftr name ? */
-            uint8_t       mapeAssigned;                 /**< Have we been assigned mape config ? */
-            uint8_t       maptAssigned;                 /**< Have we been assigned mapt config ? */
-            uint8_t       isExpired;                    /**< Is the lease time expired ? */
-            string        sitePrefix;                   /**< New site prefix, if prefixAssigned==TRUE */
-            uint32_t      prefixPltime;                 /**< IPv6 Prefix Preferred Life Time */
-            uint32_t      prefixVltime;                 /**< IPv6 Prefix Valid Life Time */
-            string        sitePrefixOld;                /**< add support for RFC7084 requirement L-13 */
-            uint32_t      prefixVltimeOld;              /**< add support for RFC7084 requirement L-13 */
-            uint32_t      prefixCmd;                    /**< Prefix command tells us whether prefix added or removed. Ex:renew or expired */
-            string        ifname;                       /**< Interface where we received leases */
-            string        address;                      /**< New IPv6 address, if addrAssigned==TRUE */
-            uint32_t      addressPltime;                /**< New IPv6 address, Preferred Life Time */
-            uint32_t      addressVltime;                /**< New IPv6 address, Valid Life Time */
-            string        pdIfAddress;                  /**< New IPv6 address of PD interface */
-            uint32_t      addrCmd;                      /**< Address command tells us whether IPv6 address added or removed. Ex:renew or expired*/
-            string        nameservers;                  /**< New nameserver(s), if addressAssigned==TRUE */
-            string        domainName;                   /**< New domain Name, if addressAssigned==TRUE */
-            string        ntpserver;                    /**< New ntp server(s), dhcp server may provide this */
+            string        sitePrefix;                   /** Site prefix */
+            uint32_t      prefixPltime;                 /** IPv6 Prefix Preferred Life Time */
+            uint32_t      prefixVltime;                 /** IPv6 Prefix Valid Life Time */
+            string        sitePrefixOld;                /** add support for RFC7084 requirement L-13 */
+            uint32_t      prefixVltimeOld;              /** add support for RFC7084 requirement L-13 */
+            uint32_t      prefixCmd;                    /** Prefix command tells us whether prefix added or removed. Ex:renew or expired */
+            string        interfaceName;                /** Interface where we received leases */
+            string        ipv6_address;                 /** IPv6 address */
+            uint32_t      addressPltime;                /** IPv6 address, Preferred Life Time */
+            uint32_t      addressVltime;                /** IPv6 address, Valid Life Time */
+            string        pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
+            string        nameservers;                  /** Nameserver(s) */
+            string        domainName;                   /** IPv6 domain Name */
+            string        ntpserver;                    /** Ntp server(s), dhcp server may provide this */
         };
 
         struct VirtualInterfaceConfig {
@@ -91,7 +72,7 @@ namespace Exchange {
 
         struct NetworkInterfaceStatus {
             String       alias                                 /* @brief current wan interface name */;
-            ActiveStatus active_status                         /* @brief WAN interface active status */;
+            bool         isActive                              /* @brief WAN interface active status */;
         };
 
         struct NetworkStatusInfo {
@@ -149,7 +130,7 @@ namespace Exchange {
 
         // @property
         // @brief Get WAN Interfaces Information
-        // @param interfaces: returns list of alias information with respect to base interface and virtual interface
+        // @param interfaces: returns list of alias
         // @retval ERROR_UNAVAILABLE Failed to retrieve WAN Interfaces
         virtual uint32_t GetInterfaces(IStringIterator*& interfaces /* @out */) const = 0;
         
