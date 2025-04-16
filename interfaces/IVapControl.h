@@ -83,13 +83,13 @@ namespace Exchange {
 
         // @property
 	// @brief Create a vap on the radio with the vap configurations provided
-	virtual uint32_t CreateVap(const VapConfig& vapConfig) const = 0;
+	virtual uint32_t CreateVap(const VapConfig& vapConfig) = 0;
 	
         // @property
         // NOTE: Setting the config by indicating the vapindex.
         // @brief Provide config details for requested vapindex.
 	virtual uint32_t Config(const uint8_t vapIndex /* @index */, VapConfig& vapConfig /* @out */) const = 0;
-	virtual uint32_t Config(const uint8_t vapIndex /* @index */, const VapConfig& vapConfig) const = 0;
+	virtual uint32_t Config(const uint8_t vapIndex /* @index */, const VapConfig& vapConfig) = 0;
 
         // @brief Enable the vap for provided vapIndex
         virtual uint32_t Enable(const uint8_t vapIndex /* @index */) = 0;
