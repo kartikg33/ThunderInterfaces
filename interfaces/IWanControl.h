@@ -113,18 +113,18 @@ namespace Exchange {
 
         // @property
         // @brief Create WAN Interface
-        // @param baseInterface: Input parameter for passing Base Interface Name to 
+        // @param interface: Input parameter for passing Base Interface Name to 
         //                       use a lookup to create virtual interface on top of this interface
-        // @param virtualIfaceInfo: Input of Virtual Interface Information
+        // @param config: Input of Virtual Interface Information
         // @retval ERROR_UNAVAILABLE Failed to create WAN Virtual Interface
-        virtual uint32_t CreateInterface(const string& baseInterface /* @in */, const struct VirtualInterfaceConfig virtualIfaceInfo /* @in */) = 0;
+        virtual uint32_t CreateInterface(const string& interface /* @in */, const struct VirtualInterfaceConfig config /* @in */) = 0;
 
         // @property
         // @brief Delete WAN Interface
-        // @param alias: Input parameter for pasing alias to lookup corresponding virtual 
+        // @param interface: Input parameter for pasing alias to lookup corresponding virtual 
         //               interface to be delete and detach from base interface
         // @retval ERROR_UNAVAILABLE Failed to delete WAN Interface
-        virtual uint32_t DeleteInterface(const string& alias /* @in */) = 0;
+        virtual uint32_t DeleteInterface(const string& interface /* @in */) = 0;
 
         // @property
         // @brief Get WAN Interfaces Information
@@ -134,9 +134,9 @@ namespace Exchange {
         
         // @property
         // @brief Activate WAN Interface
-        // @param virtualInterface: interface to be Activate
+        // @param interface: interface to be Activate
         // @retval ERROR_UNAVAILABLE Failed to retrieve WAN Interface
-        virtual uint32_t ActivateInterface(const string& virtualInterface /* @in */) = 0;
+        virtual uint32_t ActivateInterface(const string& interface /* @in */) = 0;
     };
 }
 }
