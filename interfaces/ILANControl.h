@@ -45,7 +45,7 @@ namespace Exchange {
             ETHERNET,
             WIFI
         };
-        enum Dhcpv6AddressAssignmentMode : uint8_t {
+        enum IPv6AddressAssignmentMode : uint8_t {
             STATEFUL,
             STATELESS
         };
@@ -74,7 +74,7 @@ namespace Exchange {
             IStringIterator ipv6Addresses;
             string ipv4RangeStart;
             string ipv4RangeEnd;
-            Dhcpv6AddressAssignmentMode dhcpv6AddressAssignmentMode;
+            IPv6AddressAssignmentMode ipv6AddressAssignmentMode;
             string ipv6ULA;
             string ipv6RangeStart;
             string ipv6RangeEnd;
