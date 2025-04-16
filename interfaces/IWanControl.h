@@ -28,39 +28,41 @@ namespace Exchange {
     struct EXTERNAL IWANControl : virtual public Core::IUnknown {
         enum { ID = ID_WANCONTROL };
 
+        using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
+
         enum StatusType : uint8_t {
             DOWN,
             UP
         };
 
         struct IPv4Info {
-            string        ipAddress;                    /** IPv4 address */
-            string        netmask;                      /** IPv4 netmask */
-            string        gateway;                      /** IPv4 Default gateway */
-            string        dnsServers;                   /** IPv4 dns Servers */
-            string        interfaceName;                /** IPv4 interface name */
-            uint32_t      leaseTime;                    /** Lease time */
-            uint32_t      rebindingTime;                /** Rebinding time */
-            uint32_t      renewalTime;                  /** Renewal Time */
-            int32_t       timeOffset;                   /** Time offset */
-            string        timeZone;                     /** Time zone */
-            uint8_t       mtuSize;                      /** MTU Size */
+            string                 ipAddress;                    /** IPv4 address */
+            string                 netmask;                      /** IPv4 netmask */
+            string                 gateway;                      /** IPv4 Default gateway */
+            IStringIterator        dnsServers;                   /** IPv4 dns Servers */
+            string                 interfaceName;                /** IPv4 interface name */
+            uint32_t               leaseTime;                    /** Lease time */
+            uint32_t               rebindingTime;                /** Rebinding time */
+            uint32_t               renewalTime;                  /** Renewal Time */
+            int32_t                timeOffset;                   /** Time offset */
+            string                 timeZone;                     /** Time zone */
+            uint8_t                mtuSize;                      /** MTU Size */
         };
 
         struct IPv6Info
         {
-            string        sitePrefix;                   /** Site prefix */
-            uint32_t      prefixPltime;                 /** IPv6 Prefix Preferred Life Time */
-            uint32_t      prefixVltime;                 /** IPv6 Prefix Valid Life Time */
-            string        sitePrefixOld;                /** add support for RFC7084 requirement L-13, Site Prefix Old */
-            uint32_t      prefixVltimeOld;              /** add support for RFC7084 requirement L-13, Prefix Valid Life Time Old */
-            string        interfaceName;                /** Interface where we received leases */
-            string        ipv6Address;                  /** IPv6 address */
-            uint32_t      addressPltime;                /** IPv6 address, Preferred Life Time */
-            uint32_t      addressVltime;                /** IPv6 address, Valid Life Time */
-            string        pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
-            string        dnsServers;                   /** Nameserver(s) */
-            string        ntpServers;                   /** Ntp server(s), dhcp server may provide this */
+            string                 sitePrefix;                   /** Site prefix */
+            uint32_t               prefixPltime;                 /** IPv6 Prefix Preferred Life Time */
+            uint32_t               prefixVltime;                 /** IPv6 Prefix Valid Life Time */
+            string                 sitePrefixOld;                /** add support for RFC7084 requirement L-13, Site Prefix Old */
+            uint32_t               prefixVltimeOld;              /** add support for RFC7084 requirement L-13, Prefix Valid Life Time Old */
+            string                 interfaceName;                /** Interface where we received leases */
+            string                 ipv6Address;                  /** IPv6 address */
+            uint32_t               addressPltime;                /** IPv6 address, Preferred Life Time */
+            uint32_t               addressVltime;                /** IPv6 address, Valid Life Time */
+            string                 pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
+            IStringIterator        dnsServers;                   /** Nameserver(s) */
+            IStringIterator        ntpServers;                   /** Ntp server(s), dhcp server may provide this */
         };
 
         struct VirtualInterfaceConfig {
@@ -73,10 +75,12 @@ namespace Exchange {
             bool         isActive                              /* @brief WAN interface active status */;
         };
 
+        using INetworkInterfaceStatusIterator = RPC::IIteratorType<NetworkInterfaceStatus, ID_WANCONTROL_NETWORK_INTERFACE_STATUS_ITERATOR>;
+
         struct NetworkStatusInfo {
             String                              currentWanInterfaceName              /* @brief current wan interface name */;
             StatusType                          wanStatus                            /* @brief WAN status */;
-            std::list<NetworkInterfaceStatus>   availableWanInterfacesStatus;        /* @brief available wan interface status */;
+            INetworkInterfaceStatusIterator     availableWanInterfacesStatus;        /* @brief available wan interface status */;
         };
 
         struct NetworkInfo {
@@ -84,8 +88,6 @@ namespace Exchange {
             struct IPv4Info             ipv4Info             /* @brief Network IPv4 Information */;
             struct IPv6Info             ipv6Info             /* @brief Network IPv6 Information */;
         };
-
-        using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
