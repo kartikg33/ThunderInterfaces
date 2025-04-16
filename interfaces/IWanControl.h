@@ -74,9 +74,9 @@ namespace Exchange {
         };
 
         struct NetworkStatusInfo {
-            String                      currentWanInterfaceName              /* @brief current wan interface name */;
-            StatusType                  wanStatus                            /* @brief WAN status */;
-            NetworkInterfaceStatus      *pstAvailableWanInterfacesStatus     /* @brief available wan interface status */;
+            String                              currentWanInterfaceName              /* @brief current wan interface name */;
+            StatusType                          wanStatus                            /* @brief WAN status */;
+            std::list<NetworkInterfaceStatus>   availableWanInterfacesStatus;        /* @brief available wan interface status */;
         };
 
         struct NetworkInfo {
