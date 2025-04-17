@@ -39,7 +39,7 @@ namespace Exchange {
             string                 ipAddress;                    /** IPv4 address */
             string                 netmask;                      /** IPv4 netmask */
             string                 gateway;                      /** IPv4 Default gateway */
-            IStringIterator        dnsServers;                   /** IPv4 dns Servers */
+            string                 dnsServers;                   /** IPv4 dns Servers */
             string                 interfaceName;                /** IPv4 interface name */
             uint32_t               leaseTime;                    /** Lease time */
             uint32_t               rebindingTime;                /** Rebinding time */
@@ -61,8 +61,8 @@ namespace Exchange {
             uint32_t               addressPltime;                /** IPv6 address, Preferred Life Time */
             uint32_t               addressVltime;                /** IPv6 address, Valid Life Time */
             string                 pdIfAddress;                  /** IPv6 address of Prefix Deligation interface */
-            IStringIterator        dnsServers;                   /** Nameserver(s) */
-            IStringIterator        ntpServers;                   /** Ntp server(s), dhcp server may provide this */
+            string                 dnsServers;                   /** Nameserver(s) */
+            string                 ntpServers;                   /** Ntp server(s), dhcp server may provide this */
         };
 
         struct VirtualInterfaceConfig {
@@ -70,17 +70,9 @@ namespace Exchange {
             string      virtualIfaceName                     /* @brief L3(Virtual) Interface Name */;
         };
 
-        struct NetworkInterfaceStatus {
-            String       alias                                 /* @brief current wan interface name */;
-            bool         isActive                              /* @brief WAN interface active status */;
-        };
-
-        using INetworkInterfaceStatusIterator = RPC::IIteratorType<NetworkInterfaceStatus, ID_WANCONTROL_NETWORK_INTERFACE_STATUS_ITERATOR>;
-
         struct NetworkStatusInfo {
             String                              currentWanInterfaceName              /* @brief current wan interface name */;
             StatusType                          wanStatus                            /* @brief WAN status */;
-            INetworkInterfaceStatusIterator     availableWanInterfacesStatus;        /* @brief available wan interface status */;
         };
 
         struct NetworkInfo {
