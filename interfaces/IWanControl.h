@@ -25,7 +25,7 @@ namespace WPEFramework {
 namespace Exchange {
 
     /* @json */
-    struct EXTERNAL IWANControl : virtual public Core::IUnknown {
+    struct EXTERNAL IWanControl : virtual public Core::IUnknown {
         enum { ID = ID_WANCONTROL };
 
         using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
@@ -87,12 +87,15 @@ namespace Exchange {
             virtual uint32_t UpdateOnWANInfoChange(const NetworkStatusInfo& networkInfo) = 0;
         };
 
-        ~IWANControl() override = default;
+        ~IWanControl() override = default;
 
         // Pushing notifications to interested sinks
-        virtual uint32_t Register(IWANControl::INotification* sink) = 0;
-        virtual uint32_t Unregister(IWANControl::INotification* sink) = 0;
+        virtual uint32_t Register(IWanControl::INotification* sink) = 0;
+        virtual uint32_t Unregister(IWanControl::INotification* sink) = 0;
 
+        // @json:omit
+        virtual uint32_t Configure(PluginHost::IShell* service) = 0;
+        
         // @property
         // @brief Get WAN network status information
         // @param statusInfo: Output of WAN Status Information including Active, Available WAN status
