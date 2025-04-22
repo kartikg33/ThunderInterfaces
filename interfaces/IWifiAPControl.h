@@ -27,12 +27,6 @@ namespace Exchange {
     struct EXTERNAL IVapControl : virtual public Core::IUnknown {
         enum { ID = ID_VAPCONTROL };
 
-	enum VapType : uint8_t {
-            AP     = 1    /* @text: Access Point */,
-            MESH   = 2    /* @text: Mesh */,
-	    STA    = 3    /* @text: Station */
-	};
-	
         enum Key : uint8_t {
             PSK        = 0x01  /* @text: PSK */,
             EAP        = 0x02  /* @text: EAP */,
@@ -53,16 +47,16 @@ namespace Exchange {
             WPS        = 0x10  /* @text: WPS */,
             ENTERPRISE = 0x20  /* @text: Enterprise */,
             WPA_WPA2   = 0x40  /* @text: WPA_WPA2 */,
+	    WPA3       = 0x80  /* @text: WPA3 */,
             UNKNOWN    = 0x00
         };
 
         struct VapConfig {
 	    uint8_t radioIndex;        //Radio Index of the vap
 	    uint8_t vapIndex;          //Vap Index
-	    VapType vapType;           //Vap type as ap/sta/mesh
             string ssid;               //Ssid name for the vap
 	    Security securitymethod;   //Security method for the vap
-	    Key keys;                  //Security key for the vap
+	    Key keyBitmap;             //Security key for the vap
 	    string passphrase;         //Security password for the vap
 	    bool enable;               //Enable/Disable each vap
         };
