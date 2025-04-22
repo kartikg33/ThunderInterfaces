@@ -375,7 +375,7 @@ namespace Exchange {
         ID_LANCONTROL_NOTIFICATION                   = ID_LANCONTROL + 1,
         ID_LANCONTROL_NETWORK_INTERFACE_ITERATOR     = ID_LANCONTROL + 2,
         ID_LANCONTROL_CLIENT_DEVICE_ITERATOR         = ID_LANCONTROL + 3,
-      
+
         ID_NTPCLIENT                                 = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x510,
         ID_NTPCLIENT_NOTIFICATION                    = ID_NTPCLIENT + 1,
 
@@ -383,8 +383,8 @@ namespace Exchange {
         ID_RADIOCONTROL_NOTIFICATION                 = ID_RADIOCONTROL + 1,
 	ID_RADIOCONTROL_RADIOCAPABILITIES_ITERATOR   = ID_RADIOCONTROL + 2,
 
-        ID_VAPCONTROL                                = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x530,
-	ID_VAPCONTROL_NOTIFICATION                   = ID_VAPCONTROL + 1
+        ID_WIFIAPCONTROL                             = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET + 0x530,
+	ID_WIFIAPCONTROL_NOTIFICATION                = ID_WIFIAPCONTROL + 1
     };
 }
 }

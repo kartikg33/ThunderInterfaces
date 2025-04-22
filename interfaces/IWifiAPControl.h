@@ -24,8 +24,8 @@ namespace WPEFramework {
 namespace Exchange {
 
     // @json
-    struct EXTERNAL IVapControl : virtual public Core::IUnknown {
-        enum { ID = ID_VAPCONTROL };
+    struct EXTERNAL IWifiAPControl : virtual public Core::IUnknown {
+        enum { ID = ID_WIFIAPCONTROL };
 
         enum Key : uint8_t {
             PSK        = 0x01  /* @text: PSK */,
@@ -63,17 +63,17 @@ namespace Exchange {
 
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
-            enum { ID = ID_VAPCONTROL_NOTIFICATION };
+            enum { ID = ID_WIFIAPCONTROL_NOTIFICATION };
             ~INotification() override = default;
            
             // @brief Notifies that vap status has changed
 	    virtual uint32_t VapStatusChanged(const uint8_t vapIndex, const bool status) = 0;
 
         };
-         ~IVapControl() override = default;
+         ~IWifiAPControl() override = default;
 
-        virtual uint32_t Register(IVapControl::INotification* sink) = 0;
-        virtual uint32_t Unregister(IVapControl::INotification* sink) = 0;
+        virtual uint32_t Register(IWifiAPControl::INotification* sink) = 0;
+        virtual uint32_t Unregister(IWifiAPControl::INotification* sink) = 0;
 
         // @property
 	// @brief Create a vap on the radio with the vap configurations provided
