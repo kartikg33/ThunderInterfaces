@@ -25,7 +25,7 @@ namespace WPEFramework {
 namespace Exchange {
 
     /* @json */
-    struct EXTERNAL IWANControl : virtual public Core::IUnknown {
+    struct EXTERNAL IWanControl : virtual public Core::IUnknown {
         enum { ID = ID_WANCONTROL };
 
         using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
@@ -71,14 +71,14 @@ namespace Exchange {
         };
 
         struct NetworkStatusInfo {
-            String                              currentWanInterfaceName              /* @brief current wan interface name */;
+            string                              currentWanInterfaceName              /* @brief current wan interface name */;
             StatusType                          wanStatus                            /* @brief WAN status */;
         };
 
         struct NetworkInfo {
-            struct NetworkStatusInfo    statusInfo           /* @brief Network Status Information */;
-            struct IPv4Info             ipv4Info             /* @brief Network IPv4 Information */;
-            struct IPv6Info             ipv6Info             /* @brief Network IPv6 Information */;
+            NetworkStatusInfo    statusInfo           /* @brief Network Status Information */;
+            IPv4Info             ipv4Info             /* @brief Network IPv4 Information */;
+            IPv6Info             ipv6Info             /* @brief Network IPv6 Information */;
         };
 
         // @event
@@ -93,25 +93,25 @@ namespace Exchange {
             virtual uint32_t UpdateOnWANInfoChange(const NetworkStatusInfo& networkInfo) = 0;
         };
 
-        ~IWANControl() override = default;
+        ~IWanControl() override = default;
 
         // Pushing notifications to interested sinks
-        virtual uint32_t Register(IWANControl::INotification* sink) = 0;
-        virtual uint32_t Unregister(IWANControl::INotification* sink) = 0;
+        virtual uint32_t Register(IWanControl::INotification* sink) = 0;
+        virtual uint32_t Unregister(IWanControl::INotification* sink) = 0;
 
         // @property
         // @brief Get WAN network information
         // @param networkInfo: Output of WAN Information including Active, Available WAN status
         // @retval ERROR_UNAVAILABLE Failed to retrieve WAN network information
         virtual uint32_t GetNetworkInfo(NetworkInfo& networkInfo /* @out */) const = 0;
-
+ 
         // @property
         // @brief Create WAN Interface
         // @param interface: Input parameter for passing Base Interface Name to 
         //                       use a lookup to create virtual interface on top of this interface
         // @param config: Input of Virtual Interface Information
         // @retval ERROR_UNAVAILABLE Failed to create WAN Virtual Interface
-        virtual uint32_t CreateInterface(const string& interface /* @in */, const struct VirtualInterfaceConfig config /* @in */) = 0;
+        virtual uint32_t CreateInterface(const string& interface /* @index */, const VirtualInterfaceConfig& config /* @in */) = 0;
 
         // @property
         // @brief Delete WAN Interface
