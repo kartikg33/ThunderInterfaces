@@ -99,13 +99,10 @@ namespace Exchange {
         virtual uint32_t Register(IWanControl::INotification* sink) = 0;
         virtual uint32_t Unregister(IWanControl::INotification* sink) = 0;
 
-        // @json:omit
-        virtual uint32_t Configure(PluginHost::IShell* service) = 0;
-
         // @property
-        // @brief Get WAN network status information
+        // @brief Get WAN network information
         // @param networkInfo: Output of WAN Information including Active, Available WAN status
-        // @retval ERROR_UNAVAILABLE Failed to retrieve WAN network status
+        // @retval ERROR_UNAVAILABLE Failed to retrieve WAN network information
         virtual uint32_t GetNetworkInfo(NetworkInfo& networkInfo /* @out */) const = 0;
  
         // @property
