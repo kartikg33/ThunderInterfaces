@@ -29,7 +29,8 @@ namespace Exchange {
 
 	enum RadioFreqency: uint8_t {
 	    RADIO_2_4 = 0,
-	    RADIO_5
+	    RADIO_5,
+	    RADIO_6
 	};
 
         enum Key : uint8_t {
@@ -57,8 +58,8 @@ namespace Exchange {
         };
 
         struct VapConfig {
-	    RadioFreqency radioFrequency;  //Radio Index of the vap
-	    string vapName;                //Vap Index
+	    RadioFreqency radioFrequency;  //Radio Frequency of the vap
+	    string vapName;                //Vap Name/Interface Name
             string ssid;                   //Ssid name for the vap
 	    Security securitymethod;       //Security method for the vap
 	    Key keyBitmap;                 //Security key for the vap
