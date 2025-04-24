@@ -27,6 +27,11 @@ namespace Exchange {
     struct EXTERNAL IWifiAPControl : virtual public Core::IUnknown {
         enum { ID = ID_WIFIAPCONTROL };
 
+	enum RadioFreqency: uint8_t {
+	    RADIO_2_4 = 0,
+	    RADIO_5
+	};
+
         enum Key : uint8_t {
             PSK        = 0x01  /* @text: PSK */,
             EAP        = 0x02  /* @text: EAP */,
@@ -52,13 +57,13 @@ namespace Exchange {
         };
 
         struct VapConfig {
-	    uint8_t radioIndex;        //Radio Index of the vap
-	    uint8_t vapIndex;          //Vap Index
-            string ssid;               //Ssid name for the vap
-	    Security securitymethod;   //Security method for the vap
-	    Key keyBitmap;             //Security key for the vap
-	    string passphrase;         //Security password for the vap
-	    bool enable;               //Enable/Disable each vap
+	    RadioFreqency radioFrequency;  //Radio Index of the vap
+	    string vapName;                //Vap Index
+            string ssid;                   //Ssid name for the vap
+	    Security securitymethod;       //Security method for the vap
+	    Key keyBitmap;                 //Security key for the vap
+	    string passphrase;             //Security password for the vap
+	    bool enable;                   //Enable/Disable each vap
         };
 
         // @event
@@ -67,7 +72,7 @@ namespace Exchange {
             ~INotification() override = default;
            
             // @brief Notifies that vap status has changed
-	    virtual uint32_t VapStatusChanged(const uint8_t vapIndex, const bool status) = 0;
+	    virtual uint32_t VapStatusChanged(const string vapName, const bool status) = 0;
 
         };
          ~IWifiAPControl() override = default;
@@ -80,16 +85,22 @@ namespace Exchange {
 	virtual uint32_t CreateVap(const VapConfig& vapConfig) = 0;
 	
         // @property
+	// @brief Delete a vap on the radio with the vap configurations provided
+	virtual uint32_t DeleteVap(const VapConfig& vapConfig) = 0;
+	
+        // @property
         // NOTE: Setting the config by indicating the vapindex.
         // @brief Provide config details for requested vapindex.
-	virtual uint32_t Config(const uint8_t vapIndex /* @index */, VapConfig& vapConfig /* @out */) const = 0;
-	virtual uint32_t Config(const uint8_t vapIndex /* @index */, const VapConfig& vapConfig) = 0;
+	virtual uint32_t Config(const string vapName /* @index */, VapConfig& vapConfig /* @out */) const = 0;
+	virtual uint32_t Config(const string vapName /* @index */, const VapConfig& vapConfig) = 0;
 
-        // @brief Enable the vap for provided vapIndex
-        virtual uint32_t Enable(const uint8_t vapIndex /* @index */) = 0;
+        // @brief Enable the vap for provided vapName
+	// @param vapName: vapName to enable
+        virtual uint32_t Enable(const string vapName) = 0;
 
-        // @brief Disable the vap for provided vapIndex
-        virtual uint32_t Disable(const uint8_t vapIndex /* @index */) = 0;
+        // @brief Disable the vap for provided vapName
+	// @param vapName: vapName to disable
+        virtual uint32_t Disable(const string vapName) = 0;
 
     };
 
