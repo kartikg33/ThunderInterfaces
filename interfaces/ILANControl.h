@@ -31,7 +31,7 @@ namespace Exchange {
 
         enum { ID = ID_LANCONTROL };
 
-        enum NeworkType : uint8_t {
+        enum NetworkType : uint8_t {
             BRIDGE,
             DUMMY,
             GREIPV4,
@@ -70,10 +70,11 @@ namespace Exchange {
         struct NetworkConfig {
             string nwName;
             string nwDevMac;
-            NeworkType nwType;
+            NetworkType nwType;
             bool brStpEnable;
             uint16_t brMTU;
             string ipv4Address;
+            string netMask;
             /*IStringIterator ipv6Addresses;*/ // Iterator type is not supported in struct
             string ipv6Addresses;
             string ipv4RangeStart;
@@ -85,7 +86,7 @@ namespace Exchange {
             /*IStringIterator dnsNameservers;*/ // Iterator type is not supported in struct
             string dnsNameservers;
             /*INetworkInterfaceIterator attachedInterfaces;*/ // Iterator type is not supported in struct
-            string ifname;
+            string ifnames; // comma separated interface names to be addeded to bridge
         };
         
         struct ClientDevice {
@@ -120,12 +121,12 @@ namespace Exchange {
         // @brief Status of requested network
         virtual uint32_t GetNetworkStatus(const string& network /* @index */,  StatusType& status /* @out */) const = 0;
 
-
+        
+        // @property
         // @brief Configuration of requested network
-        // @param network: Name of the network
-        // @param config: Configuration info of requested network
+        // @param config: Configuration info for the network to be created
         // @retval ERROR_UNAVAILABLE Failed to set/retrieve config
-        virtual uint32_t CreateNetwork(const string& network /* @index */, const NetworkConfig& config /* @in */) = 0;
+        virtual uint32_t CreateNetwork(const NetworkConfig& config) = 0;
 
         // @brief Configuration of requested network
         // @param network: Name of the network
@@ -147,7 +148,6 @@ namespace Exchange {
         // @param network: Name of the network to be restarted
         virtual uint32_t NetworkRestart(const string& network) = 0;
 
-        // @property
         // @brief Provides client devices that are attached to the LAN
         // @param network: Name of the network
         // @param clientDeviceList: List of connected LAN devices
