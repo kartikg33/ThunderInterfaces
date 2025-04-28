@@ -77,8 +77,8 @@ namespace Exchange {
             string netMask;
             /*IStringIterator ipv6Addresses;*/ // Iterator type is not supported in struct
             string ipv6Addresses;
-            string ipv4RangeStart;
-            string ipv4RangeEnd;
+            string ipv4StartAddress;
+            string ipv4EndAddress;
             IPv6AddressAssignmentMode ipv6AddressAssignmentMode;
             string ipv6ULA;
             string ipv6RangeStart;
