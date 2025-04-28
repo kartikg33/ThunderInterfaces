@@ -46,7 +46,7 @@ namespace Exchange {
             uint32_t               renewalTime;                  /** Renewal Time */
             int32_t                timeOffset;                   /** Time offset */
             string                 timeZone;                     /** Time zone */
-            uint8_t                mtuSize;                      /** MTU Size */
+            uint16_t               mtuSize;                      /** MTU Size */
         };
 
         struct IPv6Info
@@ -66,13 +66,13 @@ namespace Exchange {
         };
 
         struct VirtualInterfaceConfig {
-            string      alias                                /* @brief Alias Name of Interface Name */;
-            string      virtualIfaceName                     /* @brief L3(Virtual) Interface Name */;
+            string      alias                                /* Alias Name of Interface Name */;
+            string      virtualIfaceName                     /* L3(Virtual) Interface Name */;
         };
 
         struct NetworkStatusInfo {
-            string                              currentWanInterfaceName              /* @brief current wan interface name */;
-            StatusType                          wanStatus                            /* @brief WAN status */;
+            string                              currentWanInterfaceName              /* current wan interface name */;
+            string                              wanStatus                            /* WAN status */;
         };
 
         struct NetworkInfo {
