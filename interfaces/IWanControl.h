@@ -46,7 +46,7 @@ namespace Exchange {
             uint32_t               renewalTime;                  /** Renewal Time */
             int32_t                timeOffset;                   /** Time offset */
             string                 timeZone;                     /** Time zone */
-            uint8_t                mtuSize;                      /** MTU Size */
+            uint16_t               mtuSize;                      /** MTU Size */
         };
 
         struct IPv6Info
@@ -66,13 +66,13 @@ namespace Exchange {
         };
 
         struct VirtualInterfaceConfig {
-            string      alias                                /* @brief Alias Name of Interface Name */;
-            string      virtualIfaceName                     /* @brief L3(Virtual) Interface Name */;
+            string      alias                                /* Alias Name of Interface Name */;
+            string      virtualIfaceName                     /* L3(Virtual) Interface Name */;
         };
 
         struct NetworkStatusInfo {
-            string                              currentWanInterfaceName              /* @brief current wan interface name */;
-            StatusType                          wanStatus                            /* @brief WAN status */;
+            string                              currentWanInterfaceName              /* current wan interface name */;
+            string                              wanStatus                            /* WAN status */;
         };
 
         struct NetworkInfo {
@@ -113,7 +113,6 @@ namespace Exchange {
         // @retval ERROR_UNAVAILABLE Failed to create WAN Virtual Interface
         virtual uint32_t CreateInterface(const string& interface /* @index */, const VirtualInterfaceConfig& config /* @in */) = 0;
 
-        // @property
         // @brief Delete WAN Interface
         // @param interface: Input parameter for pasing alias to lookup corresponding virtual 
         //               interface to be delete and detach from base interface
@@ -126,7 +125,6 @@ namespace Exchange {
         // @retval ERROR_UNAVAILABLE Failed to retrieve WAN Interfaces
         virtual uint32_t GetInterfaces(IStringIterator*& interfaces /* @out */) const = 0;
         
-        // @property
         // @brief Activate WAN Interface
         // @param interface: interface to be Activate
         // @retval ERROR_UNAVAILABLE Failed to retrieve WAN Interface
