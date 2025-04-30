@@ -87,7 +87,7 @@ namespace Exchange {
 	
         // @property
 	// @brief Delete a vap on the radio with the vap configurations provided
-	virtual uint32_t DeleteVap(const VapConfig& vapConfig) = 0;
+	virtual uint32_t DeleteVap(const string vapName) = 0;
 	
         // @property
         // NOTE: Setting the config by indicating the vapindex.
@@ -96,12 +96,10 @@ namespace Exchange {
 	virtual uint32_t Config(const string vapName /* @index */, const VapConfig& vapConfig) = 0;
 
         // @brief Enable the vap for provided vapName
-	// @param vapName: vapName to enable
-        virtual uint32_t Enable(const string vapName) = 0;
+        virtual uint32_t Enable(const string vapName /* @index */) = 0;
 
         // @brief Disable the vap for provided vapName
-	// @param vapName: vapName to disable
-        virtual uint32_t Disable(const string vapName) = 0;
+        virtual uint32_t Disable(const string vapName /* @index */) = 0;
 
     };
 
