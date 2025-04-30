@@ -87,7 +87,7 @@ namespace Exchange {
 	
         // @property
 	// @brief Delete a vap on the radio with the vap configurations provided
-	virtual uint32_t DeleteVap(const string vapName /* @index */) = 0;
+	virtual uint32_t DeleteVap(const string vapName) = 0;
 	
         // @property
         // NOTE: Setting the config by indicating the vapindex.
