@@ -87,6 +87,9 @@ namespace Exchange {
             string dnsNameservers;
             /*INetworkInterfaceIterator attachedInterfaces;*/ // Iterator type is not supported in struct
             string ifnames; // comma separated interface names to be addeded to bridge
+            string ipv4LocalAddress; // Tunnel local address
+            string ipv4RemoteAddress;// Tunnel remote address
+            string ttl; // Tunnel ttl
         };
         
         struct ClientDevice {
